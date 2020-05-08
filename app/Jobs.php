@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Customers extends Model
+class jobs extends Model
 {
     use Notifiable;
     
@@ -17,7 +17,7 @@ class Customers extends Model
      * @var array
      */
     protected $fillable = [
-        'phone','user', 'status',
+        'phone', 'user', 'item','description', 'price',
     ];
 
     /**

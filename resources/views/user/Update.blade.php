@@ -5,15 +5,28 @@ Admin Update
 @endsection
 
 
-@section('content')
-<div class="content">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="title">Edit Profile</h5>
+@section('content')<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+        <form>
+              <div class="input-group no-border">
+                <input type="search" id="livesearch" value="" class="form-control" style="background:#000; border-color:green"placeholder="Search..." oninput="return search()" autofocus>
+                <div class="input-group-append">
+                  <div class="input-group-text" style="border-color:green">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                    </div>
+                    </div>
+                
               </div>
-              <div class="card-body">
+            </form><br><br><br>
+            <div class="card">
+                <div class="card-body">
+                <h2>Edit Profile</h2>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                 <form name="update" action="/updateprofile" method="post">
                 @csrf
                 @if (session('status'))
@@ -37,8 +50,8 @@ Admin Update
                     </div>
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email" name="email" value="{{ $user->email }}">
+                      <label>Phone No.</label>
+                        <input type="number" class="form-control" name="phone" placeholder="phone" value="{{ $user->phone}}">
                       </div>
                     </div>
                   </div>
@@ -59,8 +72,8 @@ Admin Update
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Phone No.</label>
-                        <input type="number" class="form-control" name="phone" placeholder="phone" value="{{ $user->phone}}">
+                      <label for="exampleInputEmail1">Email address (disabled)</label>
+                        <input type="email" class="form-control" disabled="" placeholder="Email" name="email" value="{{ $user->email }}">
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
@@ -72,19 +85,20 @@ Admin Update
                   
                   <p style="color:red">This section to be filled only if u want to change the password</p>
                   <div class="row">
-                  <div class="col-md-4 pr-1">
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>New password</label>
                         <input type="text" class="form-control" name="newpassword" placeholder="New password" value="">
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label>Confirm New Password</label>
                         <input type="text" class="form-control" name="confirmpassword" placeholder="Confirm new password" value="">
                       </div>
                     </div>
                   </div>
+                 
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -103,6 +117,8 @@ Admin Update
                 </form>
               </div>
             </div>
+          </div>
+          </div>
           </div>
           
    

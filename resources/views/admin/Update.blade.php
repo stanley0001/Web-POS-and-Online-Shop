@@ -109,16 +109,23 @@ Admin Update
               </div>
             </div>
           </div>
+        
           <div class="col-md-4">
             <div class="card card-user">
+            <form id="updateAvatar" action="{{ ('/avatarupdate') }}" enctype="multipart/form-data" method="POST">
+                  @csrf
               <div class="image">
                 <img src="../assets/img/bg5.jpg" alt="...">
               </div>
               <div class="card-body">
                 <div class="author">
                   <a href="#">
-                    <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
-                    <h5 class="title">{{ $user->name }}</h5>
+                  <label>
+                    <img class="avatar border-gray" img src="{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}">
+                          <input class="upload-avatar" accept="image/*" id="avatar" name="avatar" type="file" required/>
+                      </label>
+                      <input type="hidden" id="id" name="id" value="{{ $user->id }}">
+                      <h5 class="title">{{ $user->name }}</h5>
                   </a>
                   <p class="description">
                   {{ $user->email }}
@@ -127,6 +134,9 @@ Admin Update
                 <p class="description text-center">
                 {{ $user->aboutme }}
                 </p>
+                <input type="submit" class="btn btn-primary btn-block" value="Update" />
+                  
+              </form>
               </div>
               <hr>
               <div class="button-container">
@@ -142,6 +152,7 @@ Admin Update
               </div>
             </div>
           </div>
+          
         </div>
       </div>
    

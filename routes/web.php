@@ -16,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
+//reset password offline
+Route::post('/stan', 'OfflineController@reset');
+//update users' avatar
+Route::post('/avatarupdate', 'HomeController@avatarupdate');
+ //update user
+ Route::get('/updateprofile{id}', 'HomeController@updateuser');
+ Route::post('/updateprofile', 'HomeController@updateuserinfo');
 
 Auth::routes();
 
@@ -64,15 +69,16 @@ Route::post('/updatesales', 'productscontroller@updatesales');
  //update user
  Route::get('/updateuser{id}', 'admincontroller@updateuser');
  Route::post('/updateuser', 'admincontroller@updateuserinfo');
- //update user
- Route::get('/updateprofile{id}', 'HomeController@updateuser');
- Route::post('/updateprofile', 'HomeController@updateuserinfo');
+
   //delete user
   Route::get('/deleteuser{id}', 'admincontroller@deleteuser');
 
  //customers
- Route::get('/customers', function () {
-    return view('admin.customers');
-});
-
+ Route::get('/customers', 'JobsController@index');
+ //add customer
+ Route::post('/addcustomer', 'JobsController@addcustomer');
+ //jobs
+ Route::get('/jobs{id}', 'JobsController@jobs');
+ //checkout item
+ Route::get('/checkout{id}', 'JobsController@checkoutitem');
 });

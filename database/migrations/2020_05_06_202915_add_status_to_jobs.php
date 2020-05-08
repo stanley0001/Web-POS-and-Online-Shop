@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlogsTable extends Migration
+class AddStatusToJobs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateBlogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
-            $table->id();
-            $table->string('user');
-            $table->string('Title');
-            $table->string('post')->nullable();
-            $table->string('image')->nullable();
-            $table->timestamps();
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->string('status')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateBlogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs');
+        Schema::table('jobs', function (Blueprint $table) {
+            //
+        });
     }
 }

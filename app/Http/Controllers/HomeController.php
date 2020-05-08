@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\products;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Response;
+use Chatify\Http\Models\Message;
+use Chatify\Http\Models\Favorite;
+use Chatify\Facades\ChatifyMessenger as Chatify;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -67,5 +74,56 @@ class HomeController extends Controller
             }
     
             return back()->with('status', 'User Details Updated Successifully');
+        }
+
+
+        //update avatar
+        public function avatarupdate(Request $request)
+        {
+            $msg = null;
+            $error = $success = 0;
+            $id=$request->id;
+            $user=User::find($id);
+            // if there is a [file]
+            if ($request->hasFile('avatar')) {
+                // allowed extensions
+                $allowed_images = Chatify::getAllowedImages();
+    
+                $file = $request->file('avatar');
+                // if size less than 150MB
+                if ($file->getSize() < 150000000) {
+                    if (in_array($file->getClientOriginalExtension(), $allowed_images)) {
+                        // delete the older one
+                        if ($user->avatar != config('chatify.user_avatar.default')) {
+                            $path = storage_path('app/public/' . config('chatify.user_avatar.folder') . '/' . $user->avatar);
+                            if (file_exists($path)) {
+                                @unlink($path);
+                            }
+                        }
+                        // upload
+                        $avatar = Str::uuid() . "." . $file->getClientOriginalExtension();
+                        $update = User::where('id', $user->id)->update(['avatar' => $avatar]);
+                        $file->storeAs("public/" . config('chatify.user_avatar.folder'), $avatar);
+                        $success = $update ? 1 : 0;
+                    } else {
+                        return back()->with('status','File extension not allowed!');
+                        /*
+                        $msg = "File extension not allowed!";
+                        $error = 1; */
+                    }
+                } else {
+                    return back()->with('status','File extension not allowed!');
+                  /*  $msg = "File extension not allowed!";
+                    $error = 1; */
+                }
+            }
+    
+            // send the response
+            return back()->with('status','Avatar changed');
+            /* Response::json([
+                'status' => $success ? 1 : 0,
+                'error' => $error ? 1 : 0,
+                'message' => $error ? $msg : 0,
+            ], 200);  */
         }
 }

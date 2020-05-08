@@ -25,6 +25,11 @@ Admin Customers
                   
         </div>
               <div class="card-body">
+              @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                 <div class="table-responsive table-upgrade">
                   <table class="table">
                     <thead>
@@ -38,12 +43,13 @@ Admin Customers
                     </thead>
                     <tbody>
                       <tr>
-                        <form>
-                        <td class="text-center"><input type="text" class="form-control" placeholder="Phone" value=""></td>
-                        <td class="text-center"><input type="text" class="form-control" placeholder="Name" value=""></td>
-                        <td class="text-center"><input type="text" class="form-control" placeholder="Item" value=""></td>
-                        <td class="text-center"><input type="text" class="form-control" placeholder="Description" value=""></td>
-                        <td class="text-center"><input type="text" class="form-control" placeholder="Price" value=""></td>
+                        <form action="/addcustomer" method="post">
+                        @csrf
+                        <td class="text-center"><input type="text" class="form-control" name="phone" placeholder="Phone" value="" required></td>
+                        <td class="text-center"><input type="text" class="form-control" name="name" placeholder="Name" value="" required></td>
+                        <td class="text-center"><input type="text" class="form-control" name="item" placeholder="Item" value="" required></td>
+                        <td class="text-center"><input type="text" class="form-control" name="description" placeholder="Description" value="" required></td>
+                        <td class="text-center"><input type="text" class="form-control" name="price" placeholder="Price" value="" required></td>
                       
                         <td class="text-center">
                           <input type="submit" class="btn btn-round btn-primary" value="Add">
@@ -52,6 +58,34 @@ Admin Customers
                       </tr>        
                     </tbody>
                   </table>
+                  @if(isset($customers))
+                  <table>
+                  <thead>
+                  <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th></th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($customers as $customer)
+                  <tr>
+                  <td class="text-center" style="color:green">{{ $customer->user }}</td>
+                  <td class="text-center">{{ $customer->phone }}</td>
+                  <td class="text-center">@if($customer->status == 1)
+                  <i class="now-ui-icons ui-1_check text-success">
+                            @else
+                            <i class="now-ui-icons ui-1_simple-remove text-danger">
+                            @endif
+                          </td>
+                  <td class="text-center"><a href="/jobs{{ $customer->phone }}">View jobs</a></td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+                  </table>
+                  @endif
                 </div>
               </div>
             </div>

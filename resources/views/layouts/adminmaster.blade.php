@@ -62,7 +62,7 @@ function sdate(){
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/chat">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>Notifications / Messages</p>
             </a>
@@ -91,12 +91,13 @@ function sdate(){
               <p>Customer Registration</p>
             </a>
           </li>
-          <li class="active-pro">
-            <a href="./developer.html">
-              <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-              <p>Blog update</p>
+          <li>
+            <a href="/Blog">
+            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+              <p>Blog</p>
             </a>
           </li>
+      
         </ul>
       </div>
     </div>
@@ -148,8 +149,7 @@ function sdate(){
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="./updateuser{{ Auth::user()->id }}">Update Profile</a>
-               
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -159,7 +159,7 @@ function sdate(){
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                            
                 
                 </div>
               </li>

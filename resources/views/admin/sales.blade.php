@@ -78,6 +78,7 @@ document.write("<input type='hidden' name='date' value='"+stan+"'>")
                         <td class="text-center">{{ $sales->description }}</td>
                         <td class="text-center"><input type="number" class="form-control" name="quantity" placeholder="Quantity" value="{{ $sales->quantity }}"></td>
                         <td class="text-center"><input type="number" class="form-control" name ="price" placeholder="Price" value="{{ $sales->price }}"></td>
+                     
                         <td class="text-center">
                           <input type="submit" class="btn btn-round btn-primary" value="Update">
                         </td>
