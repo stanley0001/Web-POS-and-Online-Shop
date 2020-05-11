@@ -16,16 +16,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
-    <!-- Bootstrap CSS / Color Scheme -->
+    <!-- Bootstrap CSS  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/boostrap/3.3.6/css/bootstrap.min.css" />
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="../assets/css/default.css" rel="stylesheet" id="theme-color" />
-   <!-- custom javascript -->
-   <script type="text/javascript" language="javascript">
-   function search(){
-       var querry=document.getElementById('livesearch').value;
-       document.getElementById('result').innerHTML=querry;
-       //document.location.href="http://127.0.0.1:8000";
-   }
-   </script>
+   <!-- search libraries included -->
+   <sctipt src="https://ajax.googleapis..com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+   
 </head>
 <body>
 
@@ -76,14 +74,31 @@
             <!--search engine -->
             <form>
               <div class="input-group no-border">
-                <input type="text" id="livesearch" value="" class="form-control" style="background:#000; border-color:#012"placeholder="Search..." oninput="return search()" autofocus>
+                <input type="text" name="search" id="search" value="" class="form-control" style="background:#000; border-color:#012"placeholder="Search..." autofocus>
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <i class="now-ui-icons ui-1_zoom-bold"></i>
                   </div>
                 </div>
               </div>
+              <!--
+              <div class="table-responsive">
+              <h3 align="center">Total Data: <span id="total_records"></span></h3>
+              <table class="table table-striped table-bordered">
+              <thead>
+              <tr>
+              <th>hello</th>
+              <th>world</th>
+              <th>2020</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+              </table>
+              </div>
               <p id="result"></p>
+              -->
             </form><br><br><br>
             <!-- end of search engine -->
                 <h1 class="heading-black text-capitalize">Brainstech Inc.</h1>
@@ -459,3 +474,22 @@
 <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
+<script>
+$(document).ready(function){
+    fetch_customer_data();
+    function fetch_customer_data(querry = ''){
+
+        $.ajax({
+            url:"{{ route('live_search.action') }}", 
+            method:'GET',
+            data:{query:query},
+            dataType:'json'
+            success:function(data)
+            {
+                $('table').html(data.table_data);
+                $('#total_records').text(data.total_data);
+            }
+        })
+    }
+});
+</script>

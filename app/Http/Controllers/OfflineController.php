@@ -17,14 +17,14 @@ class OfflineController extends Controller
         if(count($user1)>0){
         foreach($user1 as $user1){
         $password=Hash::make($user1->phone);
-        
-        
+
+
         }
         //send verification code via sms
            //
         //change password
        $user=User::where('email', $email)
-                 ->update(['password'=>$password]); 
+                 ->update(['password'=>$password]);
                  return redirect('/login')->with('status', 'Password Reset successifully. please login with your phone number as password');
     }else{
         return back()->with('status', 'User Does not exist, Double Check your Email');

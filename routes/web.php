@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//search welcome page
+Route::get('/getme','live_searchcontroller@index');
+Route::get('/search','live_searchcontroller@search');
+Route::get('live_search', 'SearchController@index');
+Route::get('live_search/action', 'SearchController@action')->name('live_search.action');
 //reset password offline
 Route::post('/stan', 'OfflineController@reset');
 //update users' avatar
@@ -27,7 +32,7 @@ Route::post('/avatarupdate', 'HomeController@avatarupdate');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
- 
+
 Route::group(['middleware'=> ['auth', 'admin']], function(){
     //admin dashbord
     Route::get('/dashbord', function () {
@@ -37,16 +42,16 @@ Route::group(['middleware'=> ['auth', 'admin']], function(){
     Route::get('/admin', function () {
         return view('admin.Dashbord');
     });
- //get all products  
+ //get all products
  Route::get('/stocktaking', 'productscontroller@getproducts');
 
- //adding item 
+ //adding item
  Route::post('/additem', 'productscontroller@additem');
 
- //Update item 
+ //Update item
  Route::post('/updateitem', 'productscontroller@updateitem');
 
-  //search item 
+  //search item
   Route::match(array('GET','POST'),'/searchitem', 'productscontroller@searchitem');
 
  //sales
