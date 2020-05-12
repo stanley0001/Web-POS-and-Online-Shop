@@ -56,7 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
  //heroku logs
-    "log"=>"errorlog"
+    "log"=>"errorlog",
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
