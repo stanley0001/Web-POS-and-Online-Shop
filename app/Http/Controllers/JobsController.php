@@ -69,7 +69,8 @@ class JobsController extends Controller
     public function jobs(Request $request){
         $phone=$request->id;
         $jobs=jobs::where('phone', $phone)->get();
-      
+        $user=User::where('phone', $phone)->get();
+
         
     // redirect to jobs page
        return view('admin.jobs')->with('jobs', $jobs);

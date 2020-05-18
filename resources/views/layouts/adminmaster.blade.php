@@ -33,12 +33,27 @@
 
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+        <li class="active ">
             <a href="/dashbord">
             <i class="now-ui-icons education_atom"></i>
               <p style="color:green">Dashboard</p>
             </a>
           </li>
+          <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="now-ui-icons education_atom"></i>
+                  <p>
+                  <p>Settings</p>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="">Homepage Images</a>
+              
+                                    <a class="dropdown-item" href="" >
+                                        Aboutus section
+                                    </a>
+                </div>
+              </li>
           <li>
             <a href="/stocktaking">
             <i class="now-ui-icons design_app"></i>
@@ -53,7 +68,7 @@ m = n.getMonth() + 1;
 d = n.getDate();
 stan = y + "-" + m + "-" + d;
 function sdate(){
-  document.location.href="/sales"+stan+""
+  document.location.href="/sales{{ Auth::User()->name}}";
 }
 </script>
             <a onclick="return sdate()">

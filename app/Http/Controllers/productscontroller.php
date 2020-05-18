@@ -63,8 +63,10 @@ class productscontroller extends Controller
          return back()->with('status','Product Updated Successifully');
      }
      //sales
-     public function sales(){
-        $sales=sales::where('created_at','>', Carbon::today())->get();
+     public function sales(Request $request){
+        $name=$request->id;
+        $sales=sales::where('created_at','>', Carbon::today())
+                    ->where('By',$name)->get();
        
         return view('admin.sales')->with('sales', $sales);
     }
@@ -74,6 +76,8 @@ public function sale(Request $request){
     $description=$request->description;
     $quantity=$request->quantity;
     $price=$request->price;
+    $name=$request->name;
+    
      //search for item in products list
      $originalquantity=products::where('item',$item)
      ->where('description', $description)
@@ -89,14 +93,17 @@ public function sale(Request $request){
                            ->update(['quantity' =>$quantity2]);
                         }
     //add to sales
+  
+    
     $sales=new sales;
     $sales->item=$item;
     $sales->description=$description;
     $sales->quantity=$quantity;
     $sales->price=$price;
+    $sales->By=$name;
     $sales->save();
 
-    return back()->with('status', 'data added successifully');
+    return back()->with('status', 'data added successfully');
 }
        //update sales record
      public function updatesales(Request $request){
@@ -132,7 +139,10 @@ public function sale(Request $request){
     //get all sales record
     public function allsales(){
         $sales=sales::all();
-        return view('admin.allsales')->with('sales', $sales);
+        $salesuser=User::where('usertype', 'admin')->get();
+        $data=array('sales'=>$sales, 'users'=>$salesuser);
+        
+        return view('admin.allsales')->with($data);
     }
      public function searchitem(Request $request){
          $query=$request->search;
@@ -143,5 +153,26 @@ public function sale(Request $request){
             //redirect after searching
             return view('admin.stocktaking')->with('searchresult', $searchresult);
            
+     }
+     //modified search
+     public function modifiedsearch(Request $request){
+         $from=date($request->from . ' 00:00:00', time());
+         $to=date($request->to . ' 23:59:00', time());
+         $user=$request->name;
+         if($user=='All'){
+            $sales=sales::whereBetween('created_at', array($from, $to))->get();
+       
+            $salesuser=User::where('usertype', 'admin')->get();
+            $data=array('sales'=>$sales, 'users'=>$salesuser);
+         }else{
+            $sales=sales::where('By',$user)
+            ->whereBetween('created_at', array($from, $to))->get();
+       
+            $salesuser=User::where('usertype', 'admin')->get();
+            $data=array('sales'=>$sales, 'users'=>$salesuser);
+         }
+         
+         return view('admin.allsales')->with($data);
+         
      }
 }

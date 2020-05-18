@@ -34,6 +34,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=> ['auth', 'admin']], function(){
+
+//pie charts
+Route::get('allsaleschart-view', 'ChatController@index');
+
+//linechart
+    Route::get('chart-line', 'ChartController@chartLine');
+Route::get('chart-line-ajax', 'ChartController@chartLineAjax');
     //admin dashbord
     Route::get('/dashbord', function () {
         return view('admin.Dashbord');
@@ -58,7 +65,8 @@ Route::group(['middleware'=> ['auth', 'admin']], function(){
  Route::get('/sales{id}', 'productscontroller@sales');
 //add new sales record
 Route::post('/sale', 'productscontroller@sale');
-
+//modified search
+ Route::post('/modifiedsearch', 'productscontroller@modifiedsearch');
 //update sales
 Route::post('/updatesales', 'productscontroller@updatesales');
 

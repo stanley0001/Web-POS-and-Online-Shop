@@ -45,7 +45,7 @@ Admin Update
                     <div class="col-md-3 px-1">
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" name="username" value="{{ $user->name }}">
+                        <input type="text" class="form-control" placeholder="Username" name="username" value="{{ $user->name }}" disabled>
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">

@@ -34,9 +34,14 @@ Admin Sales
                       <th class="text-center"></th>
                     </thead>
                     <tbody>
-                    <form name="sale" action="/sale" method="post">
+                    <form name="sale" id="makesale" action="/sale" method="post">
                     @csrf
+                    <select name="option" style="border-radius:20px">
+                    <option>Sale</option> 
+                    <option>Expenses</option>
+                    </select>
                       <tr>
+                      <input type="hidden" name="name" value="{{ Auth::User()->name}}">
                         <td><input type="text" class="form-control" name="item" placeholder="Item" value="" required></td>
                         <td class="text-center"><input type="text" class="form-control" name="description" placeholder="Description" value="" required></td>
                         <td class="text-center"><input type="text" class="form-control" name="quantity" placeholder="Quantity" value="" required></td>
@@ -50,7 +55,7 @@ Admin Sales
 </tbody>
 </table>
                 
-                    <p style="color:green">Today's record</p>
+                    <p style="color:green">My Sales Today</p>
                   <table class="table">
                     <thead>
                       <th>Item</th>
@@ -59,7 +64,7 @@ Admin Sales
                       <th class="text-center">Price</th>
                       <th class="text-center"></th>
                     </thead>
-                    <tbody>
+                    <tbody id="table">
                     @if(isset($sales))
                     @foreach($sales as $sales)
                     <tr>
@@ -89,20 +94,39 @@ document.write("<input type='hidden' name='date' value='"+stan+"'>")
                       <td class="text-center"></td>
                       <td class="text-center"></td>
                         <td class="text-center">
-                          <a target="_blank" href="/allsales" class="btn btn-round btn-primary">All sales Record</a>
+                          <a href="/allsaleschart-view" class="btn btn-round btn-primary">All sales Record</a>
                         </td>
                         <td class="text-center">
-                          <a href="#" class="btn btn-round btn-default disabled">Total = Ksh</a>
+                          <a href="#" class="btn btn-round btn-default disabled">Total = Ksh00</a>
                         </td>
                       @endif
                         <td class="text-center"></td>
                       </tr>
+                    
                     </tbody>
+                    
                   </table>
+                  <span id="Val"></span>
+                     <script>
+                     var table = document.getElementById('table'), sumVal = 0;
+                     for(var i=1; i<table.rows.length; i++)
+                      {
+                        
+                      var y=table.rows[i].cells[3].innerHTML.value;
+                      //alert(y)
+                       // sumVal=sumVal+y;
+                        //document.getElementById('total').innerHTML='Ksh'+sumVal;
+                      }
+                       
+                     </script>
                 </div>
+                
               </div>
-            </div>
+              
+           </div>
+            
           </div>
+          
         </div>
       </div>
      
